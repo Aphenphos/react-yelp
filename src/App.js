@@ -24,7 +24,7 @@ function App() {
 
   const handleClick = async () => {
     setLoading(true);
-    const data = fetchBusinesses(zip, search);
+    const data = await fetchBusinesses(zip, search);
     setBusinesses(data);
     setLoading(false);
   };
@@ -40,7 +40,7 @@ function App() {
           <label>Query:</label>
           <input type="text" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
         </div>
-        <button>Search</button>
+        <button onClick={handleClick}>Search</button>
       </div>
       {loading && <div className="loader"></div>}
       {!loading && businesses.map((b) => <RestaurantListItem key={b.id} {...b} />)}
