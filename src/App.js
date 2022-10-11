@@ -6,6 +6,8 @@ import { fetchBusinesses } from './services/yelp';
 function App() {
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [zip, setZip] = useState('');
+  const [search, setSearch] = useState('');
 
   // TODO -- add state for zip / search and add event listeners to the inputs
 
@@ -20,17 +22,23 @@ function App() {
 
   // TODO -- add event for button click to handle calling fetchBusinesses with zip / search
 
+  const handleClick = async () => {
+    setLoading(true);
+    const data = fetchBusinesses(zip, search);
+    setBusinesses(data);
+    setLoading(false);
+  };
   return (
     <div className="App">
       <h1>Alchemy Restaurant Finder</h1>
       <div className="query-form">
         <div className="form-control">
           <label>Zip:</label>
-          <input type="text" placeholder="zip" />
+          <input type="text" placeholder="zip" onChange={(e) => setZip(e.target.value)} />
         </div>
         <div className="form-control">
           <label>Query:</label>
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
         </div>
         <button>Search</button>
       </div>
